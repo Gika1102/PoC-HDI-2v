@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17252a">
+  <title>Feedback da feira | Kyndryl AI</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/form.css">
+</head>
+<body class="form-page">
+  <main class="form-shell">
+    <a class="form-back-link" href="../index.html">&larr; Voltar ao portal</a>
+    <section class="form-intro" aria-labelledby="form-title">
+      <span class="form-eyebrow">FEIRA &bull; DEMO</span>
+      <div class="form-brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h1 id="form-title">Conte como foi sua experiência</h1>
+      <p>Leva menos de um minuto. Seu feedback ajuda a orientar os próximos passos da demonstração.</p>
+    </section>
+    <section class="progress-area" aria-label="Progresso do formulário">
+      <div class="progress-track"><span id="progressBar"></span></div>
+      <span id="stepLabel">Etapa 1 de 3</span>
+    </section>
+    <form id="feedbackForm" novalidate>
+      <fieldset class="form-step is-active" data-step="1">
+        <legend>Para começar</legend>
+        <p class="step-hint">Campos marcados com * são obrigatórios.</p>
+        <label class="field-label" for="name">Nome <span aria-hidden="true">*</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required placeholder="Como podemos chamar você?">
+        <span class="field-error" data-error-for="name"></span>
+        <label class="field-label" for="email">E-mail <span aria-hidden="true">*</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="180" required placeholder="voce@empresa.com">
+        <span class="field-error" data-error-for="email"></span>
+        <label class="field-label" for="company">Empresa <span class="optional">opcional</span></label>
+        <input id="company" name="company" type="text" autocomplete="organization" maxlength="180" placeholder="Nome da empresa">
+      </fieldset>
+      <fieldset class="form-step" data-step="2" hidden>
+        <legend>O que trouxe você aqui?</legend>
+        <p class="step-hint">Escolha a opção que melhor representa seu momento.</p>
+        <span class="field-label" id="interest-label">Tema de maior interesse <span aria-hidden="true">*</span></span>
+        <div class="choice-list" role="radiogroup" aria-labelledby="interest-label">
+          <label class="choice-card"><input type="radio" name="interest" value="IA aplicada a RH" required><span>IA aplicada a RH</span></label>
+          <label class="choice-card"><input type="radio" name="interest" value="Automacao de processos"><span>Automação de processos</span></label>
+          <label class="choice-card"><input type="radio" name="interest" value="Saude ocupacional"><span>Saúde ocupacional</span></label>
+          <label class="choice-card"><input type="radio" name="interest" value="Outro"><span>Outro tema</span></label>
+        </div>
+        <span class="field-error" data-error-for="interest"></span>
+        <label class="field-label" for="role">Seu perfil <span class="optional">opcional</span></label>
+        <select id="role" name="role">
+          <option value="">Selecione uma opção</option><option>RH</option><option>Gestão</option><option>TI</option><option>Consultoria</option><option>Outro</option>
+        </select>
+      </fieldset>
+      <fieldset class="form-step" data-step="3" hidden>
+        <legend>Última pergunta</legend>
+        <p class="step-hint">Uma frase já ajuda bastante.</p>
+        <label class="field-label" for="comment">O que você gostaria de ver ou experimentar?</label>
+        <textarea id="comment" name="comment" rows="6" maxlength="2000" placeholder="Compartilhe uma ideia, dúvida ou impressão..."></textarea>
+        <span class="character-count" id="characterCount">0 / 2000</span>
+        <label class="consent-line"><input id="consent" name="consent" type="checkbox" required><span>Autorizo o uso deste feedback para análise da demonstração. <span aria-hidden="true">*</span></span></label>
+        <span class="field-error" data-error-for="consent"></span>
+      </fieldset>
+      <div class="form-actions">
+        <button type="button" id="backButton" class="button button-secondary" hidden>Voltar</button>
+        <button type="button" id="nextButton" class="button button-primary">Continuar <span aria-hidden="true">&rarr;</span></button>
+        <button type="submit" id="submitButton" class="button button-primary" hidden>Enviar feedback <span aria-hidden="true">&rarr;</span></button>
+      </div>
+      <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <script src="../js/form.js"></script>
+</body>
+</html>
