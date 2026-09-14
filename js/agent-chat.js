@@ -30,10 +30,12 @@ function localResponse(message) {
   const text = normalise(message);
   const { employees, clinics } = window.fakeAgentData;
   const scoped = scopedEmployees();
+  const asksAboutPeople = /(equipe|time|subordinad|colega|colaborador|funcionario)/.test(text);
 
   if (activeProfile === "ti") {
     const overdue = employees.filter(item => item.status === "Vencido").length;
     const upcoming = employees.filter(item => item.status === "Próximo").length;
+    if (asksAboutPeople) return "Seu perfil de TI não tem nível de acesso para consultar informações de equipes ou colaboradores.";
     if (/(vencido|atrasado|pendente)/.test(text)) return `Monitoramento técnico: ${overdue} registro(s) na fila crítica. Dados anonimizados.`;
     if (/(proximo|30 dia|alerta)/.test(text)) return `Monitoramento técnico: ${upcoming} registro(s) na fila de alertas preventivos. Dados anonimizados.`;
     return `Status técnico da PoC:\n• Fonte: dados fictícios embarcados no site\n• Registros processados: ${employees.length}\n• Integrações externas: nenhuma\n• Dados pessoais: ocultos para o perfil TI`;
@@ -42,9 +44,14 @@ function localResponse(message) {
   if (/(ajuda|o que voce|opcoes)/.test(text)) return "Posso mostrar resumo, exames vencidos, próximos exames, situação pessoal/equipe e clínicas sugeridas dentro do seu acesso.";
   const byName = employees.find(item => normalise(item.name) && text.includes(normalise(item.name)));
   if (byName) {
-    if (!scoped.some(item => item.id === byName.id)) return "Não posso mostrar dados individuais fora do escopo do perfil selecionado.";
+    if (!scoped.some(item => item.id === byName.id)) {
+      if (activeProfile === "funcionario") return "Seu perfil de Funcionário permite consultar apenas os seus próprios dados.";
+      if (activeProfile === "gerente") return "Seu perfil de Gerente permite consultar apenas os dados da sua própria equipe.";
+      return "Não posso mostrar dados individuais fora do escopo do perfil selecionado.";
+    }
     return `Situação encontrada:\n${employeeLine(byName)}`;
   }
+  if (activeProfile === "funcionario" && asksAboutPeople) return "Seu perfil de Funcionário permite consultar apenas os seus próprios dados, sem acesso a equipes ou colegas.";
   if (/(clinica|onde|local)/.test(text)) {
     if (activeProfile === "funcionario") {
       const clinic = clinics.find(item => item.id === scoped[0].clinicId);
