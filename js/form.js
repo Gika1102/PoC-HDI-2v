@@ -89,6 +89,9 @@ form.addEventListener("change", event => {
   if (event.target.type === "radio" || (currentStep === 1 && event.target.name === "email")) advanceIfValid();
   if (event.target.name === "consent" && event.target.checked && validateStep()) form.requestSubmit();
 });
+form.elements.email.addEventListener("blur", () => {
+  if (currentStep === 1) advanceIfValid();
+});
 form.addEventListener("submit", async event => {
   event.preventDefault(); if (isSubmitting || !validateStep()) return;
   const formData = Object.fromEntries(new FormData(form).entries()); delete formData.consent;

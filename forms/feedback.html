@@ -27,16 +27,24 @@
       <fieldset class="form-step is-active" data-step="1">
         <legend>Sobre você</legend>
         <p class="step-hint">Esses dados ajudam a contextualizar o resultado.</p>
-        <label class="field-label" for="name">Nome <span aria-hidden="true">*</span></label>
-        <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required placeholder="Como podemos chamar você?">
-        <span class="field-error" data-error-for="name"></span>
-        <label class="field-label" for="company">Empresa <span class="optional">opcional</span></label>
-        <input id="company" name="company" type="text" autocomplete="organization" maxlength="180" placeholder="Nome da empresa">
-        <label class="field-label" for="role">Cargo <span class="optional">opcional</span></label>
-        <input id="role" name="role" type="text" autocomplete="organization-title" maxlength="120" placeholder="Seu cargo ou função">
-        <label class="field-label" for="email">E-mail <span aria-hidden="true">*</span></label>
-        <input id="email" name="email" type="email" autocomplete="email" maxlength="180" required placeholder="voce@empresa.com">
-        <span class="field-error" data-error-for="email"></span>
+        <div class="field-group">
+          <label class="field-label" for="name">Nome <span aria-hidden="true">*</span></label>
+          <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required placeholder="Como podemos chamar você?">
+          <span class="field-error" data-error-for="name"></span>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="company">Empresa <span class="optional">opcional</span></label>
+          <input id="company" name="company" type="text" autocomplete="organization" maxlength="180" placeholder="Nome da empresa">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="role">Cargo <span class="optional">opcional</span></label>
+          <input id="role" name="role" type="text" autocomplete="organization-title" maxlength="120" placeholder="Seu cargo ou função">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="email">E-mail <span aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" autocomplete="email" maxlength="180" required placeholder="voce@empresa.com">
+          <span class="field-error" data-error-for="email"></span>
+        </div>
       </fieldset>
       <fieldset class="form-step" data-step="2" hidden>
         <legend>1. Liderança e visão</legend>
