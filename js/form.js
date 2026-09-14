@@ -17,8 +17,11 @@ const scorePreview = document.getElementById("scorePreview");
 const scoreNames = ["leadershipVision", "workKnowledge", "portfolioRoadmap", "technologySecurity", "accountability", "changeLearning"];
 let currentStep = Number(localStorage.getItem(`${STORAGE_KEY}_step`) || 1);
 let isSubmitting = false;
+let hasStarted = false;
 
 function startAssessment() {
+  if (hasStarted) return;
+  hasStarted = true;
   document.body.classList.add("is-started");
   introPanel.setAttribute("aria-hidden", "true");
   progressArea.hidden = false;
@@ -99,7 +102,8 @@ form.addEventListener("submit", async event => {
   } catch (error) { console.error(error); setStatus("Não foi possível enviar agora. Sua resposta ficou salva neste aparelho; tente novamente quando a conexão estiver estável.", "error"); }
   finally { isSubmitting = false; submitButton.disabled = false; nextButton.disabled = false; backButton.disabled = false; }
 });
+const savedDraft = readDraft();
 fillDraft();
-if (localStorage.getItem(STORAGE_KEY) || currentStep > 1) startAssessment();
+if (Object.keys(savedDraft).some(key => key !== "consent" && savedDraft[key])) startAssessment();
 characterCount.textContent = `${form.elements.comment.value.length} / 2000`;
 updateScorePreview();
