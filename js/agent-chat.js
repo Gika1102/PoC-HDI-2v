@@ -31,6 +31,13 @@ function localResponse(message) {
   const { employees, clinics } = window.fakeAgentData;
   const scoped = scopedEmployees();
   const asksAboutPeople = /(equipe|time|subordinad|colega|colaborador|funcionario)/.test(text);
+  const asksForTechnicalOnlyData = /(status tecn|monitoramento tecn|dados tecn|indicad|anonimiz|alerta tecn|base tecn|ti)/.test(text);
+
+  if (activeProfile !== "ti" && asksForTechnicalOnlyData) {
+    if (activeProfile === "funcionario") return "Seu perfil de Funcionário não tem nível de acesso para indicadores técnicos do perfil TI.";
+    if (activeProfile === "gerente") return "Seu perfil de Gerente não tem nível de acesso para indicadores técnicos do perfil TI.";
+    if (activeProfile === "rh") return "Seu perfil de RH não tem nível de acesso para indicadores técnicos do perfil TI.";
+  }
 
   if (activeProfile === "ti") {
     const overdue = employees.filter(item => item.status === "Vencido").length;
@@ -47,11 +54,14 @@ function localResponse(message) {
     if (!scoped.some(item => item.id === byName.id)) {
       if (activeProfile === "funcionario") return "Seu perfil de Funcionário permite consultar apenas os seus próprios dados.";
       if (activeProfile === "gerente") return "Seu perfil de Gerente permite consultar apenas os dados da sua própria equipe.";
+      if (activeProfile === "rh") return "Seu perfil de RH tem acesso aos dados de pessoas da organização, mas não aos indicadores técnicos do perfil TI.";
       return "Não posso mostrar dados individuais fora do escopo do perfil selecionado.";
     }
     return `Situação encontrada:\n${employeeLine(byName)}`;
   }
   if (activeProfile === "funcionario" && asksAboutPeople) return "Seu perfil de Funcionário permite consultar apenas os seus próprios dados, sem acesso a equipes ou colegas.";
+  if (activeProfile === "gerente" && /(equipe|time|subordinado|time|colaboradores)/.test(text) && !/(meu|minha|resumo da minha equipe)/.test(text)) return "Seu perfil de Gerente só tem nível de acesso para a sua própria equipe.";
+  if (activeProfile === "rh" && asksForTechnicalOnlyData) return "Seu perfil de RH não tem nível de acesso para indicadores técnicos do perfil TI.";
   if (/(clinica|onde|local)/.test(text)) {
     if (activeProfile === "funcionario") {
       const clinic = clinics.find(item => item.id === scoped[0].clinicId);
