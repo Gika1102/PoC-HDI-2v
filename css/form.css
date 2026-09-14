@@ -32,7 +32,13 @@
 .start-button { position: relative; z-index: 1; align-self: flex-start; margin-top: 32px; padding: 15px 20px; border: 0; border-radius: 6px; background: var(--form-red); color: #fff; cursor: pointer; font: inherit; font-weight: 800; }
 .start-button:hover, .start-button:focus-visible { background: #ff3b42; transform: translateX(3px); }
 .start-button span { margin-left: 12px; }
-.form-page.is-started .form-intro { display: none; }
+.form-page.is-started .form-intro { min-height: 0; margin-bottom: 14px; padding: 24px 28px; border-radius: 28px 14px 34px 14px; }
+.form-page.is-started .form-intro h1 { max-width: 720px; margin: 0; font-size: clamp(1.45rem, 3vw, 2.2rem); }
+.form-page.is-started .form-intro h2 { display: none; }
+.form-page.is-started .form-intro p { display: block; margin-top: 7px; font-size: .86rem; }
+.form-page.is-started .form-brand-mark { position: absolute; right: 28px; bottom: 24px; margin: 0; }
+.form-page.is-started .start-button { display: none; }
+.form-page.is-started .intro-brand { position: static; margin-bottom: 14px; }
 .progress-area { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-top: 0; border-bottom: 0; color: var(--form-muted); font-size: .78rem; font-weight: 700; }
 .progress-track { flex: 1; height: 7px; overflow: hidden; border-radius: 99px; background: #e6eeec; }
 .progress-track span { display: block; width: 33.33%; height: 100%; border-radius: inherit; background: var(--form-teal); transition: width 220ms ease; }
@@ -107,8 +113,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--form-teal); box-
   .form-intro h2 { max-width: 620px; font-size: 1.15rem; }
   .form-intro p { font-size: 1rem; }
   .form-page.is-started .form-intro { padding: 28px 42px; }
-  .form-page.is-started .intro-brand { left: 42px; }
-  .form-page.is-started .form-intro h1 { font-size: 1.8rem; }
+  .form-page.is-started .form-brand-mark { right: 42px; bottom: 28px; }
   .progress-area { padding: 20px 42px; }
   #feedbackForm { padding: 42px; }
   .form-step { max-width: 760px; margin: 0 auto; }
