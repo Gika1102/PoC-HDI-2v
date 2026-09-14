@@ -1,0 +1,446 @@
+.journey-container {
+  flex: 1;
+  background-color: #F8F9FA;
+  background-image: radial-gradient(#D5DBDB 1.3px, transparent 1.3px);
+  background-size: 24px 24px;
+  overflow-y: auto;
+  padding: 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.journey-intro {
+  background: white;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 8px 20px -4px rgba(28, 35, 37, 0.08), 0 2px 6px -1px rgba(28, 35, 37, 0.03);
+}
+
+.journey-intro h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.journey-intro p {
+  font-size: 11px;
+  color: #64748B;
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   PLAYER INTERATIVO
+========================================================= */
+
+.journey-player {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Timeline dos Estágios */
+.journey-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.journey-timeline-segment {
+  border: 2px solid #E2E8F0;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+  font-family: inherit;
+  box-shadow: 0 2px 6px rgba(28, 35, 37, 0.05);
+}
+
+.journey-timeline-segment:hover {
+  box-shadow: 0 8px 18px rgba(28, 35, 37, 0.1);
+  transform: translateY(-2px);
+  border-color: #94A3B8;
+}
+
+.journey-timeline-segment.active {
+  background: #FFFFFF;
+  border-color: currentColor;
+  border-width: 2.5px;
+  box-shadow: 0 6px 20px rgba(28, 35, 37, 0.12);
+}
+
+.journey-timeline-segment.completed::before {
+  content: '✓';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  color: #10B981;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.segment-number {
+  font-size: 13px;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.segment-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.25;
+}
+
+.segment-explanation {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 400;
+  color: #475569;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* Tela do Player */
+.journey-screen {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 20px -4px rgba(28, 35, 37, 0.08), 0 2px 6px -1px rgba(28, 35, 37, 0.03);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+}
+
+.journey-screen-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid #E2E8F0;
+  background: #FFFFFF;
+}
+
+.journey-screen-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 4px;
+}
+
+.journey-screen-header p {
+  font-size: 12px;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.journey-log {
+  flex: 1;
+  overflow: hidden;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #FFFFFF;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* Log Entries */
+.journey-log-entry {
+  padding: 12px 14px;
+  background: #F7F7F6;
+  border-left: 3px solid #CBD5E1;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+  transition: all 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.journey-log-entry:last-child {
+  background: #FEF2F2;
+  border-left: 3px solid #FF462D;
+  box-shadow: 0 4px 14px rgba(255, 70, 45, 0.12);
+  color: #0F172A;
+  scale: 1.01;
+}
+
+/* Agent Messages */
+.journey-agent-message {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  transition: all 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.journey-agent-message:last-child {
+  scale: 1.01;
+}
+
+.journey-agent-message:last-child .journey-message-bubble {
+  box-shadow: 0 4px 14px rgba(255, 70, 45, 0.12);
+  border: 1.5px solid #FF462D;
+  background: #FFFBF9;
+}
+
+.journey-message-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #1C2325;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.journey-message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.journey-message-author {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.journey-message-bubble {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0F172A;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Thinking Indicator */
+.journey-thinking-wrapper {
+  opacity: 0.85;
+}
+
+.journey-thinking-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px;
+  background: #F7F7F6;
+  border-radius: 8px;
+}
+
+.journey-thinking-indicator span {
+  width: 4px;
+  height: 4px;
+  background: #94A3B8;
+  border-radius: 50%;
+  animation: thinkingAnimation 1.2s infinite ease-in-out;
+}
+
+.journey-thinking-indicator span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.journey-thinking-indicator span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes thinkingAnimation {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* Human Action */
+.journey-human-action {
+  align-self: flex-end;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #059669;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 4px 0;
+  transition: all 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.journey-human-action:last-child {
+  background: #D5F5EB;
+  border: 1.5px solid #10B981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+  scale: 1.02;
+  font-weight: 700;
+}
+
+/* Controls */
+.journey-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #FFFFFF;
+  border-top: 1px solid #E2E8F0;
+  border-radius: 0 0 14px 14px;
+}
+
+.journey-control-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.journey-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #64748B;
+}
+
+.journey-btn:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+  color: #0F172A;
+  transform: translateY(-1px);
+}
+
+.journey-btn:active {
+  transform: scale(0.95);
+}
+
+.journey-btn.play-btn {
+  width: 46px;
+  background: linear-gradient(135deg, #FF462D 0%, #FF7A66 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(255, 70, 45, 0.25);
+}
+
+.journey-btn.play-btn:hover {
+  background: linear-gradient(135deg, #E63A1F 0%, #FF6D54 100%);
+  box-shadow: 0 6px 16px rgba(255, 70, 45, 0.35);
+  transform: translateY(-1px);
+}
+
+.journey-progress {
+  width: 100%;
+  height: 3px;
+  background: #E2E8F0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.journey-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FF462D 0%, #FF7A66 100%);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.journey-step-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748B;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Animação de entrada */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   INDICADOR DE DIGITAÇÃO (COMO TEAMS/WHATSAPP)
+========================================================= */
+
+.journey-typing-indicator {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  padding: 10px 0;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.journey-typing-indicator span {
+  width: 5px;
+  height: 5px;
+  background: #94A3B8;
+  border-radius: 50%;
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+
+.journey-typing-indicator span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.journey-typing-indicator span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}

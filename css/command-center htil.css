@@ -1,0 +1,633 @@
+/* ====================================================
+   VIEWPORT E CANVAS WORLD
+==================================================== */
+.page-header h1 {
+  font-size: 24px;
+}
+
+.page-header p {
+  font-size: 14px;
+}
+
+.badge-tag {
+  font-size: 13px;
+}
+
+.nav-link {
+  font-size: 15px;
+}
+
+.sidebar-footer {
+  font-size: 12px;
+}
+
+body > .main-wrapper > footer {
+  font-size: 14px !important;
+}
+
+main.canvas-viewport {
+  flex: 1;
+  position: relative;
+  background-color: #F8F9FA;
+  background-image: radial-gradient(#D5DBDB 1.3px, transparent 1.3px);
+  background-size: 24px 24px;
+  overflow: hidden;
+  cursor: grab;
+}
+
+main.canvas-viewport.grabbing {
+  cursor: grabbing;
+}
+
+.canvas-world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1400px;
+  height: 1080px;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.connection-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.connection-line {
+  stroke: #CBD5E1;
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.8;
+}
+
+.flow-dot {
+  fill: var(--kyn-red, #FF462D);
+  filter: drop-shadow(0 0 5px rgba(255, 70, 45, 0.6));
+}
+
+/* ====================================================
+   GRID DO CANVAS: 5 LINHAS COMPACTAS
+==================================================== */
+.nodes-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 380px 380px 380px;
+  grid-template-rows: 160px 140px 88px 140px 140px 88px 150px;
+  column-gap: 40px;
+  row-gap: 34px;
+  justify-content: center;
+  align-content: center;
+  padding: 40px;
+  z-index: 2;
+}
+
+/* ====================================================
+   CARDS PADRÃO
+==================================================== */
+.card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 5px 12px rgba(28, 35, 37, 0.18), 0 1px 2px rgba(28, 35, 37, 0.12);
+  border: 1px solid #D4D8DC;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 148px;
+  filter: none;
+  backdrop-filter: none;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 14px rgba(28, 35, 37, 0.22);
+}
+
+/* ====================================================
+   POSICIONAMENTO ESTRATÉGICO DOS NÓS
+==================================================== */
+/* Nível 1: Agente Core */
+#node-core {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Nível 2: Fontes de Dados e Clínicas */
+#node-corporate-db {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: center;
+  align-self: center;
+}
+
+#node-external-ms {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: center;
+  align-self: center;
+}
+
+#node-clinics {
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Nível 3: Human in the Loop - Pesquisa */
+#node-hitl-research {
+  grid-column: 2;
+  grid-row: 3;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Nível 4: Motor de Contexto */
+#node-context-engine {
+  grid-column: 2;
+  grid-row: 4;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Nível 5: Gerador de Mensagens */
+#node-msg-gen {
+  grid-column: 2;
+  grid-row: 5;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Nível 6: Human in the Loop - Mensagem */
+#node-hitl-message {
+  grid-column: 2;
+  grid-row: 6;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Nível 7: Compliance e Power Automate */
+#node-compliance {
+  grid-column: 1;
+  grid-row: 7;
+  justify-self: center;
+  align-self: center;
+  transform: translateX(60px);
+}
+
+#node-dispatch {
+  grid-column: 3;
+  grid-row: 7;
+  justify-self: center;
+  align-self: center;
+  transform: translateX(-60px);
+}
+
+/* ====================================================
+   DESIGN CARD DO CORE (HUB KYNDRYL)
+==================================================== */
+.card-center {
+  width: 400px !important;
+  height: 175px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid #1C2325 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 7px 16px rgba(28, 35, 37, 0.2) !important;
+}
+
+.card-center:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(28, 35, 37, 0.24) !important;
+  border-color: var(--kyn-red, #FF462D) !important;
+}
+
+.center-header {
+  background: linear-gradient(135deg, #1C2325 0%, #1B4D5C 100%);
+  color: white;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.center-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agent-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #FF462D 0%, #FF7A66 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-spark {
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.center-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #A4DDEE;
+  display: block;
+}
+
+.center-header h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.badge-live-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 70, 45, 0.2);
+  border: 1px solid rgba(255, 70, 45, 0.5);
+  color: #FF8575;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 12px;
+}
+
+.pulse-dot {
+  width: 5px;
+  height: 5px;
+  background: #FF462D;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #FF462D;
+}
+
+.agent-status-bar {
+  background: #FAF9F7;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.status-indicator { color: #D97706; font-size: 11px; }
+.status-text {
+  color: #475569;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.status-text strong { color: #0F172A; }
+.status-chip {
+  background: #EDEBE8;
+  color: #0F766E;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.center-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  padding: 8px 12px;
+}
+
+.center-metric-box {
+  background: #FAF9F7;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 5px 6px;
+  text-align: center;
+}
+
+.center-metric-box.highlight {
+  background: #ECFDF5;
+  border-color: #A7F3D0;
+}
+.center-metric-box.highlight .c-val { color: #059669; }
+
+.c-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0F172A;
+}
+.c-val span { font-size: 11px; font-weight: 600; color: #64748B; }
+.c-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+.center-footer {
+  padding: 5px 12px;
+  background: #FFFFFF;
+  border-top: 1px solid #E2E8F0;
+  font-size: 11px;
+  color: #059669;
+  font-weight: 600;
+}
+
+/* ====================================================
+   ESTILIZAÇÃO INTERNA DOS CARDS PADRÃO
+==================================================== */
+.card.border-teal   { border-left: 5px solid #0D9488; background: #FFFFFF; }
+.card.border-aqua   { border-left: 5px solid #06B6D4; background: #FFFFFF; }
+.card.border-purple { border-left: 5px solid #8B5CF6; background: #FFFFFF; }
+.card.border-amber  { border-left: 5px solid #F59E0B; background: #FFFFFF; }
+.card.border-red    { border-left: 5px solid #EF4444; background: #FFFFFF; }
+.card.border-green  { border-left: 5px solid #10B981; background: #FFFFFF; }
+.card.border-blue   { border-left: 5px solid #3B82F6; background: #FFFFFF; }
+.card.border-human  { border-left: 5px solid #0F766E; background: #FFFFFF; }
+
+.human-loop-card {
+  width: 360px;
+  height: 76px;
+  padding: 10px 14px;
+  border-left: 1px solid #99F6E4;
+  border-right: 1px solid #99F6E4;
+  background: #F0FDFA;
+  box-shadow: 0 6px 16px -4px rgba(15, 118, 110, 0.14);
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.human-loop-card:hover {
+  border-color: #0F766E;
+  box-shadow: 0 10px 22px -4px rgba(15, 118, 110, 0.2);
+}
+
+.human-loop-content {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  flex: 1;
+}
+
+.human-loop-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  background: #CCFBF1;
+  font-size: 15px;
+}
+
+.human-loop-kicker {
+  display: block;
+  color: #0F766E;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.human-loop-card h4 {
+  margin: 1px 0 0;
+  color: #134E4A;
+  font-size: 13px;
+  line-height: 1.15;
+}
+
+.human-loop-card p {
+  margin: 2px 0 0;
+  color: #56817D;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.badge-human {
+  flex: 0 0 auto;
+  background: #CCFBF1;
+  color: #0F766E;
+  font-size: 9px;
+  max-width: 112px;
+  text-align: center;
+  white-space: normal;
+}
+
+.badge-human .badge-dot { background: #0F766E; }
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  background: #F1F5F9;
+}
+
+.card-head h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.card-head p {
+  font-size: 13px;
+  color: #64748B;
+  margin: 1px 0 0 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.badge-healthy { background: #ECFDF5; color: #059669; }
+.badge-healthy .badge-dot { background: #10B981; }
+
+.badge-watch { background: #FFFBEB; color: #D97706; }
+.badge-watch .badge-dot { background: #F59E0B; }
+
+.badge-action { background: #FEF2F2; color: #DC2626; }
+.badge-action .badge-dot { background: #EF4444; }
+
+.metrics {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 6px 0;
+}
+
+.metric-item { text-align: left; }
+.metric-val {
+  font-size: 23px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1;
+}
+.metric-val span { font-size: 12px; color: #64748B; }
+.metric-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.mini-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 12px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 2px;
+  background: #E2E8F0;
+}
+
+.theme-teal .bar   { background: #99F6E4; }
+.theme-aqua .bar   { background: #A5F3FC; }
+.theme-purple .bar { background: #DDD6FE; }
+.theme-amber .bar  { background: #FDE68A; }
+.theme-red .bar    { background: #FECACA; }
+.theme-green .bar  { background: #A7F3D0; }
+.theme-blue .bar   { background: #BFDBFE; }
+
+/* ====================================================
+   CONTROLES FLUTUANTES
+==================================================== */
+.canvas-controls {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(28, 35, 37, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  z-index: 15;
+}
+
+.canvas-controls.canvas-controls-left {
+  right: auto;
+  left: 24px;
+}
+
+.btn-ctrl {
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-size: 16px;
+  font-weight: bold;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-ctrl:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.ctrl-divider {
+  width: 1px;
+  height: 14px;
+  background: #E2E8F0;
+  margin: 0 1px;
+}
+
+/* ====================================================
+   BOTÃO FAB DO AGENTE
+==================================================== */
+.fab-agent-button {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FF462D;
+  border: 2px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 16px rgba(255, 70, 45, 0.3);
+  cursor: pointer;
+  z-index: 16;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: white;
+}
+
+.fab-agent-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 70, 45, 0.4);
+}
+
+.fab-agent-button:active {
+  transform: scale(0.95);
+}

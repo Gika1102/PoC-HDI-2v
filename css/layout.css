@@ -1,0 +1,442 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--bg-white);
+  color: var(--kyn-dark);
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.global-sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--kyn-dark);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--kyn-charcoal);
+  z-index: 50;
+  flex-shrink: 0;
+  position: relative;
+  align-items: flex-start;
+}
+
+.sidebar-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--kyn-red);
+  box-shadow: 0 0 10px var(--kyn-red);
+}
+
+.brand-logo h2 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #ffffff;
+}
+
+.brand-logo span {
+  font-size: 10.5px;
+  color: var(--kyn-sand-gray);
+  display: block;
+}
+
+.sidebar-nav {
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #A4DDEE;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+.nav-link.active {
+  background: var(--kyn-red);
+  color: white;
+  box-shadow: 0 4px 14px rgba(255, 70, 45, 0.35);
+}
+
+.nav-icon {
+  font-size: 16px;
+}
+
+.sidebar-footer {
+  padding: 18px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: var(--kyn-sand-gray);
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.page-header {
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--kyn-border);
+  padding: 16px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+  position: relative;
+}
+
+.menu-toggle-header {
+  display: none !important;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--kyn-dark);
+  cursor: pointer;
+  padding: 0;
+  margin-right: 16px;
+  transition: color 0.2s ease;
+}
+
+.menu-toggle-header:hover {
+  color: var(--kyn-red);
+}
+
+body.sidebar-open .menu-toggle-header {
+  display: block !important;
+}
+
+.page-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--kyn-dark);
+}
+
+.page-header p {
+  font-size: 12px;
+  color: var(--kyn-gray-medium);
+  margin-top: 2px;
+}
+
+.badge-tag {
+  background: var(--kyn-sand-bg);
+  border: 1px solid var(--kyn-border);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--kyn-teal-deep);
+}
+
+.header-view-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #64748B;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.header-view-switch:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+  color: #475569;
+}
+
+/* ========================================================
+   SIDEBAR RETRÁTIL
+======================================================== */
+.sidebar-toggle {
+  position: relative;
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  z-index: 70;
+  padding: 0 12px;
+  border-radius: 0;
+  border-bottom: none;
+  min-width: 60px;
+  min-height: 60px;
+}
+
+.sidebar-toggle span {
+  width: 20px;
+  height: 2px;
+  background: white;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  background: var(--kyn-charcoal);
+}
+
+.global-sidebar {
+  transition: width 0.3s ease, margin 0.3s ease;
+  position: relative;
+}
+
+.global-sidebar.collapsed {
+  width: 70px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.global-sidebar.collapsed .sidebar-toggle {
+  display: flex;
+  order: 1;
+}
+
+.global-sidebar.collapsed > div {
+  order: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.global-sidebar.collapsed .sidebar-footer {
+  order: 3;
+  width: 100%;
+}
+
+.global-sidebar.collapsed .sidebar-header {
+  padding: 20px 12px;
+  justify-content: center;
+}
+
+.global-sidebar.collapsed .brand-logo {
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.global-sidebar.collapsed .brand-logo .dot {
+  width: 10px;
+  height: 10px;
+}
+
+.global-sidebar.collapsed .brand-logo h2,
+.global-sidebar.collapsed .brand-logo span {
+  display: none;
+}
+
+.global-sidebar.collapsed .sidebar-nav {
+  padding: 16px 0;
+}
+
+.global-sidebar.collapsed .nav-link {
+  justify-content: center;
+  padding: 14px 12px;
+  gap: 0;
+  font-size: 0;
+}
+
+.global-sidebar.collapsed .nav-icon {
+  font-size: 18px;
+  margin: 0;
+}
+
+.global-sidebar.collapsed .nav-link span:not(.nav-icon) {
+  display: none;
+}
+
+.global-sidebar.collapsed .sidebar-footer {
+  padding: 16px 12px;
+  text-align: center;
+  font-size: 9px;
+  word-break: break-word;
+}
+
+.global-sidebar.collapsed ~ .sidebar-toggle {
+  display: flex;
+}
+
+body.sidebar-open .global-sidebar.collapsed {
+  width: 250px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+body.sidebar-open .global-sidebar.collapsed .sidebar-toggle {
+  display: flex;
+  width: 100%;
+  min-width: auto;
+  border-bottom: 1px solid var(--kyn-charcoal);
+  order: 0;
+}
+
+body.sidebar-open .global-sidebar.collapsed > div {
+  width: 100%;
+  order: auto;
+}
+
+body.sidebar-open .global-sidebar.collapsed .sidebar-header {
+  padding: 24px 20px;
+}
+
+body.sidebar-open .global-sidebar.collapsed .brand-logo {
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+body.sidebar-open .global-sidebar.collapsed .brand-logo h2,
+body.sidebar-open .global-sidebar.collapsed .brand-logo span {
+  display: block;
+}
+
+body.sidebar-open .global-sidebar.collapsed .sidebar-nav {
+  padding: 20px 12px;
+}
+
+body.sidebar-open .global-sidebar.collapsed .nav-link {
+  justify-content: flex-start;
+  padding: 12px 16px;
+  gap: 12px;
+  font-size: 13px;
+}
+
+body.sidebar-open .global-sidebar.collapsed .nav-link span:not(.nav-icon) {
+  display: inline;
+}
+
+body.sidebar-open .global-sidebar.collapsed .sidebar-footer {
+  padding: 18px 20px;
+  width: 100%;
+  order: auto;
+}
+
+/* Estrutura estável da lateral: conteúdo no topo e rodapé sempre na base. */
+.global-sidebar,
+.global-sidebar.collapsed {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.global-sidebar.collapsed {
+  width: 70px;
+}
+
+.global-sidebar.collapsed > div {
+  width: 100%;
+  order: initial;
+}
+
+.global-sidebar.collapsed > div:first-of-type {
+  flex: 1;
+}
+
+.global-sidebar.collapsed .sidebar-toggle {
+  display: flex;
+  order: initial;
+  width: 70px;
+  min-width: 70px;
+  min-height: 58px;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.global-sidebar.collapsed .sidebar-footer {
+  order: initial;
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+  margin-top: auto;
+  padding: 10px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 9px;
+  line-height: 1.25;
+  word-break: normal;
+}
+
+/* No menu aberto, o ícone fica na mesma faixa visual do logo Kyndryl. */
+body.sidebar-open .global-sidebar.collapsed {
+  width: var(--sidebar-width);
+}
+
+body.sidebar-open .global-sidebar.collapsed .sidebar-toggle {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  width: 34px;
+  min-width: 34px;
+  min-height: 34px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .06);
+}
+
+body.sidebar-open .global-sidebar.collapsed .sidebar-header {
+  padding: 22px 62px 22px 20px;
+}
+
+body.sidebar-open .global-sidebar.collapsed .sidebar-footer {
+  height: 40px;
+  min-height: 40px;
+  margin-top: auto;
+  padding: 12px 20px;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: 11px;
+}
