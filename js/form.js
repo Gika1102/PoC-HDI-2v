@@ -34,7 +34,8 @@ function setStatus(message, type = "") { statusMessage.textContent = message; st
 function showStep(step) {
   currentStep = Math.min(Math.max(step, 1), steps.length);
   steps.forEach((element, index) => { const active = index + 1 === currentStep; element.hidden = !active; element.classList.toggle("is-active", active); });
-  backButton.hidden = currentStep === 1; nextButton.hidden = currentStep === steps.length; submitButton.hidden = currentStep !== steps.length;
+  backButton.textContent = currentStep === 1 ? "Voltar ao portal" : "Voltar";
+  nextButton.hidden = currentStep === steps.length; submitButton.hidden = currentStep !== steps.length;
   progressBar.style.width = `${(currentStep / steps.length) * 100}%`; stepLabel.textContent = `Etapa ${currentStep} de ${steps.length}`; saveDraft();
 }
 function validateStep() {
@@ -50,10 +51,22 @@ function makeId() { return crypto.randomUUID ? crypto.randomUUID() : `${Date.now
 function savePending(response) { localStorage.setItem(PENDING_KEY, JSON.stringify(response)); }
 function clearLocalBackup() { localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(`${STORAGE_KEY}_step`); localStorage.removeItem(PENDING_KEY); }
 
-nextButton.addEventListener("click", () => { setStatus(); if (validateStep()) showStep(currentStep + 1); });
-backButton.addEventListener("click", () => { setStatus(); showStep(currentStep - 1); });
+function advanceIfValid() {
+  if (currentStep < steps.length && validateStep()) showStep(currentStep + 1);
+}
+
+nextButton.addEventListener("click", () => { setStatus(); advanceIfValid(); });
+backButton.addEventListener("click", () => {
+  setStatus();
+  if (currentStep === 1) window.location.href = "../index.html";
+  else showStep(currentStep - 1);
+});
 form.addEventListener("input", () => { saveDraft(); characterCount.textContent = `${form.elements.comment.value.length} / 2000`; });
-form.addEventListener("change", saveDraft);
+form.addEventListener("change", event => {
+  saveDraft();
+  if (event.target.name === "interest" || (currentStep === 1 && event.target.name === "email")) advanceIfValid();
+  if (event.target.name === "consent" && event.target.checked && validateStep()) form.requestSubmit();
+});
 form.addEventListener("submit", async event => {
   event.preventDefault(); if (isSubmitting || !validateStep()) return;
   const formData = Object.fromEntries(new FormData(form).entries()); delete formData.consent;

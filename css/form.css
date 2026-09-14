@@ -8,12 +8,16 @@
   --form-red: var(--kyn-red, #ed1c24);
 }
 * { box-sizing: border-box; }
-.form-page { min-height: 100vh; margin: 0; padding: 20px; color: var(--form-ink); background: var(--form-sand); font-family: var(--font-family, "Segoe UI", sans-serif); }
+.form-page { position: relative; min-height: 100vh; margin: 0; padding: 20px; overflow-x: hidden; color: var(--form-ink); background: var(--form-sand); font-family: var(--font-family, "Segoe UI", sans-serif); }
+.form-page::before, .form-page::after { position: fixed; z-index: 0; width: 72vw; height: 38vh; border: 1px solid rgba(0, 169, 157, .22); border-radius: 48% 52% 62% 38% / 48% 38% 62% 52%; content: ""; pointer-events: none; transform: rotate(-13deg); }
+.form-page::before { top: -12vh; left: -24vw; box-shadow: 0 0 0 18px rgba(237, 28, 36, .06), 0 0 0 38px rgba(0, 169, 157, .06); }
+.form-page::after { right: -30vw; bottom: -14vh; border-color: rgba(237, 28, 36, .18); transform: rotate(18deg); }
 .form-shell { width: min(100%, 620px); margin: 0 auto; }
+.form-shell { position: relative; z-index: 1; }
 .form-back-link { display: inline-block; margin: 4px 0 22px; color: var(--form-ink); font-size: .85rem; font-weight: 700; text-decoration: none; }
 .form-back-link:hover, .form-back-link:focus-visible { color: var(--form-red); }
 .form-intro, .progress-area, #feedbackForm { background: var(--form-paper); border: 1px solid rgba(23, 37, 42, .1); }
-.form-intro { position: relative; overflow: hidden; padding: 30px 24px 26px; border-radius: 18px 18px 0 0; background: linear-gradient(135deg, var(--form-ink), #23444a); color: #fff; }
+.form-intro { position: relative; overflow: hidden; padding: 30px 24px 26px; border-radius: 34px 18px 42px 18px; background: linear-gradient(135deg, var(--form-ink), #23444a); color: #fff; }
 .form-intro::after { position: absolute; right: -42px; bottom: -66px; width: 170px; height: 170px; border: 24px solid var(--form-red); border-radius: 50%; content: ""; opacity: .85; }
 .form-eyebrow { position: relative; z-index: 1; color: #8be1d8; font-size: .7rem; font-weight: 800; letter-spacing: .12em; }
 .form-brand-mark { display: flex; gap: 4px; margin: 18px 0 14px; }
@@ -25,7 +29,7 @@
 .progress-area { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-top: 0; border-bottom: 0; color: var(--form-muted); font-size: .78rem; font-weight: 700; }
 .progress-track { flex: 1; height: 7px; overflow: hidden; border-radius: 99px; background: #e6eeec; }
 .progress-track span { display: block; width: 33.33%; height: 100%; border-radius: inherit; background: var(--form-teal); transition: width 220ms ease; }
-#feedbackForm { padding: 26px 24px 24px; border-radius: 0 0 18px 18px; }
+#feedbackForm { padding: 26px 24px 24px; border-radius: 18px 42px 22px 34px; }
 .form-step { margin: 0; padding: 0; border: 0; }
 .form-step[hidden] { display: none; }
 .form-step.is-active { animation: form-enter 180ms ease-out; }
@@ -53,7 +57,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--form-teal); box-
 .button:focus-visible { outline: 3px solid rgba(0, 169, 157, .35); outline-offset: 2px; }
 .button:disabled { cursor: wait; opacity: .6; }
 .button-primary { flex: 1; background: var(--form-red); color: #fff; }
-.button-secondary { background: #e8efed; color: var(--form-ink); }
+.button-secondary { min-width: 92px; background: #e8efed; color: var(--form-ink); }
 .status-message { min-height: 22px; margin: 14px 0 0; color: var(--form-muted); font-size: .83rem; line-height: 1.4; }
 .status-message.is-success { color: #087f68; }
 .status-message.is-error { color: #b42318; }
