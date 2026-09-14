@@ -3,6 +3,9 @@ const STORAGE_KEY = "hdi_feedback_draft_v1";
 const PENDING_KEY = "hdi_feedback_pending_v1";
 const form = document.getElementById("feedbackForm");
 const steps = [...document.querySelectorAll(".form-step")];
+const introPanel = document.getElementById("introPanel");
+const progressArea = document.getElementById("progressArea");
+const startButton = document.getElementById("startButton");
 const backButton = document.getElementById("backButton");
 const nextButton = document.getElementById("nextButton");
 const submitButton = document.getElementById("submitButton");
@@ -10,8 +13,19 @@ const statusMessage = document.getElementById("statusMessage");
 const progressBar = document.getElementById("progressBar");
 const stepLabel = document.getElementById("stepLabel");
 const characterCount = document.getElementById("characterCount");
+const scorePreview = document.getElementById("scorePreview");
+const scoreNames = ["leadershipVision", "workKnowledge", "portfolioRoadmap", "technologySecurity", "accountability", "changeLearning"];
 let currentStep = Number(localStorage.getItem(`${STORAGE_KEY}_step`) || 1);
 let isSubmitting = false;
+
+function startAssessment() {
+  document.body.classList.add("is-started");
+  introPanel.setAttribute("aria-hidden", "true");
+  progressArea.hidden = false;
+  form.hidden = false;
+  showStep(currentStep);
+  form.querySelector(":invalid")?.focus();
+}
 
 function readDraft() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch { return {}; } }
 function saveDraft() {
@@ -25,7 +39,7 @@ function fillDraft() {
   Object.entries(draft).forEach(([name, value]) => {
     const field = form.elements[name];
     if (!field) return;
-    if (field.type === "radio") [...form.elements[name]].find(input => input.value === value)?.click();
+    if (field.length && field[0].type === "radio") [...field].find(input => input.value === value)?.click();
     else if (field.type === "checkbox") field.checked = value === true || value === "true";
     else field.value = value;
   });
@@ -36,7 +50,11 @@ function showStep(step) {
   steps.forEach((element, index) => { const active = index + 1 === currentStep; element.hidden = !active; element.classList.toggle("is-active", active); });
   backButton.textContent = currentStep === 1 ? "Voltar ao portal" : "Voltar";
   nextButton.hidden = currentStep === steps.length; submitButton.hidden = currentStep !== steps.length;
-  progressBar.style.width = `${(currentStep / steps.length) * 100}%`; stepLabel.textContent = `Etapa ${currentStep} de ${steps.length}`; saveDraft();
+  progressBar.style.width = `${(currentStep / steps.length) * 100}%`; stepLabel.textContent = `Etapa ${currentStep} de ${steps.length}`; updateScorePreview(); saveDraft();
+}
+function updateScorePreview() {
+  const scores = scoreNames.map(name => Number(form.elements[name]?.value)).filter(Number.isFinite);
+  if (scorePreview) scorePreview.textContent = (scores.length ? scores.reduce((sum, score) => sum + score, 0) / scores.length : 0).toFixed(1).replace(".", ",");
 }
 function validateStep() {
   const activeStep = steps[currentStep - 1]; const fields = [...activeStep.querySelectorAll("input, select, textarea")]; let isValid = true;
@@ -56,6 +74,7 @@ function advanceIfValid() {
 }
 
 nextButton.addEventListener("click", () => { setStatus(); advanceIfValid(); });
+startButton.addEventListener("click", startAssessment);
 backButton.addEventListener("click", () => {
   setStatus();
   if (currentStep === 1) window.location.href = "../index.html";
@@ -64,7 +83,7 @@ backButton.addEventListener("click", () => {
 form.addEventListener("input", () => { saveDraft(); characterCount.textContent = `${form.elements.comment.value.length} / 2000`; });
 form.addEventListener("change", event => {
   saveDraft();
-  if (event.target.name === "interest" || (currentStep === 1 && event.target.name === "email")) advanceIfValid();
+  if (event.target.type === "radio" || (currentStep === 1 && event.target.name === "email")) advanceIfValid();
   if (event.target.name === "consent" && event.target.checked && validateStep()) form.requestSubmit();
 });
 form.addEventListener("submit", async event => {
@@ -80,4 +99,7 @@ form.addEventListener("submit", async event => {
   } catch (error) { console.error(error); setStatus("Não foi possível enviar agora. Sua resposta ficou salva neste aparelho; tente novamente quando a conexão estiver estável.", "error"); }
   finally { isSubmitting = false; submitButton.disabled = false; nextButton.disabled = false; backButton.disabled = false; }
 });
-fillDraft(); showStep(currentStep); characterCount.textContent = `${form.elements.comment.value.length} / 2000`;
+fillDraft();
+if (localStorage.getItem(STORAGE_KEY) || currentStep > 1) startAssessment();
+characterCount.textContent = `${form.elements.comment.value.length} / 2000`;
+updateScorePreview();

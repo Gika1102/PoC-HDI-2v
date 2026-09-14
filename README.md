@@ -10,6 +10,7 @@ Uma demonstração estática de um agente fictício para acompanhamento de exame
 - Todos os dados são fictícios e ficam em `js/fake-agent-data.js`.
 - `backend/employees.xlsx` é a referência editável da massa de demonstração; ao alterá-la, replique os dados no arquivo JavaScript estático.
 - `forms/feedback.html` é o formulário mobile-first; sua lógica e seus estilos ficam, respectivamente, em `js/form.js` e `css/form.css`.
+- O assessment coleta contexto da pessoa e pontua seis dimensões: liderança e visão; conhecimento do trabalho; portfólio e roadmap; tecnologia, dados e segurança; responsabilidades e accountability; mudança e aprendizagem.
 
 ## Abrir localmente
 

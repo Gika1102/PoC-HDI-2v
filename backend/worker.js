@@ -60,9 +60,14 @@ export default {
         name: String(answers.name).slice(0, 120),
         email: String(answers.email).slice(0, 180),
         company: String(answers.company || "").slice(0, 180),
-        interest: String(answers.interest || "").slice(0, 120),
         role: String(answers.role || "").slice(0, 80),
-        comment: String(answers.comment || "").slice(0, 2000)
+        comment: String(answers.comment || "").slice(0, 2000),
+        leadershipVision: String(answers.leadershipVision || "").slice(0, 1),
+        workKnowledge: String(answers.workKnowledge || "").slice(0, 1),
+        portfolioRoadmap: String(answers.portfolioRoadmap || "").slice(0, 1),
+        technologySecurity: String(answers.technologySecurity || "").slice(0, 1),
+        accountability: String(answers.accountability || "").slice(0, 1),
+        changeLearning: String(answers.changeLearning || "").slice(0, 1)
       }
     };
 
