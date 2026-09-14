@@ -1,4 +1,5 @@
 let activeProfile = "funcionario";
+let chatGeneration = 0;
 
 function normalise(text) {
   return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
@@ -81,10 +82,20 @@ function addAgentMessage(text, sender = "agent") {
   container.appendChild(wrapper); container.scrollTop = container.scrollHeight;
 }
 
+function clearAgentChatHistory() {
+  const container = document.getElementById("agentChatMessages");
+  if (container) container.replaceChildren();
+}
+
 function suggestedQuestions() { if (activeProfile === "ti") return ["Status técnico da base", "Quantos alertas preventivos existem?", "Quantos casos críticos existem?"]; if (activeProfile === "gerente") return ["Resumo da minha equipe", "Quem está com exame vencido?", "Quem precisa fazer exame nos próximos 30 dias?"]; if (activeProfile === "rh") return ["Faça um resumo da situação dos exames", "Quem está com exame vencido?", "Quais são as clínicas sugeridas?"]; return ["Qual é a minha situação?", "Qual é minha clínica sugerida?", "Preciso fazer exame nos próximos 30 dias?"]; }
 
 function setProfile(profile) {
+  const profileChanged = activeProfile !== profile;
   activeProfile = profile;
+  if (profileChanged) {
+    chatGeneration += 1;
+    clearAgentChatHistory();
+  }
   const names = { funcionario: "Funcionário", gerente: "Gerente", rh: "RH", ti: "TI" };
   document.getElementById("agentProfileStatus").lastChild.textContent = ` Online • Perfil: ${names[profile]}`;
   document.querySelectorAll("[data-profile]").forEach(button => button.classList.toggle("active", button.dataset.profile === profile));
@@ -95,7 +106,7 @@ function setProfile(profile) {
 
 function sendSuggestedQuestion(question) { document.getElementById("agentChatInput").value = question; sendAgentMessage(); }
 function handleAgentInput(event) { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); sendAgentMessage(); } }
-function sendAgentMessage() { const input = document.getElementById("agentChatInput"); const message = input.value.trim(); if (!message) return; addAgentMessage(message, "user"); input.value = ""; window.setTimeout(() => addAgentMessage(localResponse(message)), 220); }
+function sendAgentMessage() { const input = document.getElementById("agentChatInput"); const message = input.value.trim(); if (!message) return; const generation = chatGeneration; addAgentMessage(message, "user"); input.value = ""; window.setTimeout(() => { if (generation === chatGeneration) addAgentMessage(localResponse(message)); }, 220); }
 
 window.addEventListener("keydown", event => { if (event.key === "Escape") closeAgentChat(); });
 window.addEventListener("DOMContentLoaded", () => { document.getElementById("agentSendButton").addEventListener("click", sendAgentMessage); document.querySelectorAll("[data-profile]").forEach(button => button.addEventListener("click", () => setProfile(button.dataset.profile))); setProfile(activeProfile); });
