@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyndryl Agentic AI • Command Centre</title>
+
+  <link rel="stylesheet" href="css/agent-chat.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/command-center.css">
+  <link rel="stylesheet" href="css/drawer.css">
+</head>
+<body>
+
+  <!-- Menu Lateral Global -->
+  <aside class="global-sidebar" id="globalSidebar">
+    <!-- Botão de Menu Sanduíche -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()" title="Abrir/Fechar menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div>
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="dot"></div>
+          <div>
+            <h2>Kyndryl AI</h2>
+            <span>Agentic Framework</span>
+          </div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link">
+          <span class="nav-icon">🏠</span> Início / Visão Geral
+        </a>
+        <a href="command-center.html" class="nav-link active">
+          <span class="nav-icon">🕸️</span> Centro de Comando
+        </a>
+        <a href="agent-journey.html" class="nav-link">
+          <span class="nav-icon">🚀</span> Jornada & Autonomia
+        </a>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <span>Copilot Studio • MVP NR-7</span>
+    </div>
+  </aside>
+
+  <!-- Conteúdo Principal -->
+  <div class="main-wrapper">
+    <header class="page-header">
+      <div>
+        <h1>Centro de Comando • Orquestrador de Exames</h1>
+        <p>Powered by <strong>kyndryl</strong> Agentic Framework & Microsoft Copilot Studio</p>
+      </div>
+      <a class="header-view-switch" href="command-center hitl.html" aria-label="Abrir fluxo com Human in the Loop">
+        <span aria-hidden="true">⇄</span> Human in the Loop
+      </a>
+    </header>
+
+    <!-- Canvas Viewport -->
+    <main class="canvas-viewport" id="viewport">
+      <div class="canvas-world" id="canvasWorld">
+        <svg class="connection-layer" id="svgConnections"></svg>
+
+        <div class="nodes-layer">
+
+          <!-- ==========================================
+               NÍVEL 1: AGENTE CORE
+          =========================================== -->
+          <div class="card card-center pos-core border-purple theme-purple" id="node-core" onclick="handleCardClick('copilotAgent')">
+            <div class="center-header">
+              <div class="center-title-group">
+                <div class="agent-avatar"><span class="avatar-spark">✦</span></div>
+                <div>
+                  <span class="center-tag">Kyndryl Agentic Orchestrator</span>
+                  <h2>Agente Core • Copilot Brain</h2>
+                </div>
+              </div>
+              <span class="badge-live-pulse"><span class="pulse-dot"></span>LIVE LOOP</span>
+            </div>
+
+            <div class="agent-status-bar">
+              <span class="status-indicator">⚡</span>
+              <span class="status-text"><strong>Raciocínio Contextual:</strong> 4 pendências triadas</span>
+              <span class="status-chip">GPT-4o</span>
+            </div>
+
+            <div class="center-metrics-grid">
+              <div class="center-metric-box">
+                <div class="c-val">4 <span>/ 4</span></div>
+                <div class="c-lbl">Triados</div>
+              </div>
+              <div class="center-metric-box highlight">
+                <div class="c-val">100%</div>
+                <div class="c-lbl">Autonomia</div>
+              </div>
+              <div class="center-metric-box">
+                <div class="c-val">0</div>
+                <div class="c-lbl">Intervenção</div>
+              </div>
+            </div>
+
+            <div class="center-footer">
+              <span class="footer-state">● Monitorando bases e conectores</span>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               NÍVEL 2: FONTES DE DADOS E CONECTORES
+          =========================================== -->
+          <!-- 2.1 Base Corporativa -->
+          <div class="card border-teal theme-teal" id="node-corporate-db" onclick="handleCardClick('database')">
+            <div class="card-head">
+              <div class="card-title-group">
+                <div class="icon-box">🗄️</div>
+                <div>
+                  <h4>Base Corporativa</h4>
+                  <p>Dataverse • SharePoint • Excel</p>
+                </div>
+              </div>
+              <span class="badge badge-healthy"><span class="badge-dot"></span>Synced</span>
+            </div>
+            <div class="metrics">
+              <div class="metric-item"><div class="metric-val">28</div><div class="metric-label">Employees</div></div>
+              <div class="metric-item"><div class="metric-val">100%</div><div class="metric-label">Integridade</div></div>
+              <div class="metric-item"><div class="metric-val">4</div><div class="metric-label">Setores</div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="bar" style="height: 50%;"></div>
+              <div class="bar" style="height: 80%;"></div>
+              <div class="bar" style="height: 100%;"></div>
+              <div class="bar" style="height: 70%;"></div>
+            </div>
+          </div>
+
+          <!-- 2.2 Bases Externas -->
+          <div class="card border-blue theme-blue" id="node-external-ms" onclick="handleCardClick('externalBases')">
+            <div class="card-head">
+              <div class="card-title-group">
+                <div class="icon-box">🌐</div>
+                <div>
+                  <h4>Bases Externas</h4>
+                  <p>MS Saúde • Portarias NR-7</p>
+                </div>
+              </div>
+              <span class="badge badge-healthy"><span class="badge-dot"></span>Conectado</span>
+            </div>
+            <div class="metrics">
+              <div class="metric-item"><div class="metric-val">API</div><div class="metric-label">Integração</div></div>
+              <div class="metric-item"><div class="metric-val">100%</div><div class="metric-label">Conformidade</div></div>
+              <div class="metric-item"><div class="metric-val">Ativo</div><div class="metric-label">Status</div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="bar" style="height: 60%;"></div>
+              <div class="bar" style="height: 85%;"></div>
+              <div class="bar" style="height: 95%;"></div>
+            </div>
+          </div>
+
+          <!-- 2.3 Rede de Clínicas -->
+          <div class="card border-purple theme-purple" id="node-clinics" onclick="handleCardClick('clinics')">
+            <div class="card-head">
+              <div class="card-title-group">
+                <div class="icon-box">🏥</div>
+                <div>
+                  <h4>Rede de Clínicas</h4>
+                  <p>Credenciadas & Localidades</p>
+                </div>
+              </div>
+              <span class="badge badge-healthy"><span class="badge-dot"></span>Online</span>
+            </div>
+            <div class="metrics">
+              <div class="metric-item"><div class="metric-val">127</div><div class="metric-label">Credenciadas</div></div>
+              <div class="metric-item"><div class="metric-val">Brasil</div><div class="metric-label">Polos</div></div>
+              <div class="metric-item"><div class="metric-val">100%</div><div class="metric-label">Disponibilidade</div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="bar" style="height: 40%;"></div>
+              <div class="bar" style="height: 70%;"></div>
+              <div class="bar" style="height: 90%;"></div>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               NÍVEL 3: PROCESSAMENTO CENTRAL
+          =========================================== -->
+          <!-- Motor de Contexto -->
+          <div class="card border-aqua theme-aqua" id="node-context-engine" onclick="handleCardClick('triage')">
+            <div class="card-head">
+              <div class="card-title-group">
+                <div class="icon-box">🧠</div>
+                <div>
+                  <h4>Motor de Contexto</h4>
+                  <p>Análise, aplicação de políticas, tratamento de exceções</p>
+                </div>
+              </div>
+              <span class="badge badge-watch"><span class="badge-dot"></span>4 Ações</span>
+            </div>
+            <div class="metrics">
+              <div class="metric-item"><div class="metric-val">1 <span>/ 28</span></div><div class="metric-label">Vencido</div></div>
+              <div class="metric-item"><div class="metric-val">3</div><div class="metric-label">Próx. Prazo Final.</div></div>
+              <div class="metric-item"><div class="metric-val">1</div><div class="metric-label">Agendado</div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="bar" style="height: 90%;"></div>
+              <div class="bar" style="height: 60%;"></div>
+              <div class="bar" style="height: 40%;"></div>
+              <div class="bar" style="height: 20%;"></div>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               NÍVEL 4: COMUNICAÇÃO
+          =========================================== -->
+          <!-- Gerador de Mensagens -->
+          <div class="card border-amber theme-amber" id="node-msg-gen" onclick="handleCardClick('promptEngine')">
+            <div class="card-head">
+              <div class="card-title-group">
+                <div class="icon-box">✍️</div>
+                <div>
+                  <h4>Gerador de Mensagens</h4>
+                  <p>Comunicação Personalizada</p>
+                </div>
+              </div>
+              <span class="badge badge-healthy"><span class="badge-dot"></span>Ready</span>
+            </div>
+            <div class="metrics">
+              <div class="metric-item"><div class="metric-val">4</div><div class="metric-label">Templates</div></div>
+              <div class="metric-item"><div class="metric-val">1:1</div><div class="metric-label">Personalização</div></div>
+              <div class="metric-item"><div class="metric-val">0</div><div class="metric-label">Erros de Tom</div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="bar" style="height: 60%;"></div>
+              <div class="bar" style="height: 80%;"></div>
+              <div class="bar" style="height: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               NÍVEL 5: EXECUÇÃO & AUDITORIA
+          =========================================== -->
+          <!-- 5.1 Compliance & Logs -->
+          <div class="card border-green theme-green" id="node-compliance" onclick="handleCardClick('compliance')">
+            <div class="card-head">
+              <div class="card-title-group">
+                <div class="icon-box">🛡️</div>
+                <div>
+                  <h4>Compliance & Logs</h4>
+                  <p>Auditoria de Saúde Ocupacional</p>
+                </div>
+              </div>
+              <span class="badge badge-healthy"><span class="badge-dot"></span>Auditável</span>
+            </div>
+            <div class="metrics">
+              <div class="metric-item"><div class="metric-val">100%</div><div class="metric-label">Rastreabilidade</div></div>
+              <div class="metric-item"><div class="metric-val">NR-7</div><div class="metric-label">Adequação</div></div>
+              <div class="metric-item"><div class="metric-val">0</div><div class="metric-label">Pendência Legal</div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="bar" style="height: 40%;"></div>
+              <div class="bar" style="height: 80%;"></div>
+              <div class="bar" style="height: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- 5.2 Disparador Multicanal -->
+          <div class="card border-red theme-red" id="node-dispatch" onclick="handleCardClick('dispatch')">
+            <div class="card-head">
+              <div class="card-title-group">
+                <div class="icon-box">⚡</div>
+                <div>
+                  <h4>Power Automate</h4>
+                  <p>Disparo: Microsoft Teams & E-mail</p>
+                </div>
+              </div>
+              <span class="badge badge-action"><span class="badge-dot"></span>Pronto p/ Disparo</span>
+            </div>
+            <div class="metrics">
+              <div class="metric-item"><div class="metric-val">3</div><div class="metric-label">Na Fila</div></div>
+              <div class="metric-item"><div class="metric-val">2</div><div class="metric-label">Canais Ativos</div></div>
+              <div class="metric-item"><div class="metric-val">&lt; 1s</div><div class="metric-label">Latência</div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="bar" style="height: 70%;"></div>
+              <div class="bar" style="height: 90%;"></div>
+              <div class="bar" style="height: 60%;"></div>
+            </div>
+          </div>
+
+        </div> <!-- /nodes-layer -->
+      </div> <!-- /canvasWorld -->
+
+      <!-- Controles Flutuantes (Esquerda) -->
+      <div class="canvas-controls canvas-controls-left">
+        <button class="btn-ctrl" onclick="zoomIn()" title="Aproximar (+)">+</button>
+        <button class="btn-ctrl" onclick="zoomOut()" title="Afastar (-)">−</button>
+        <div class="ctrl-divider"></div>
+        <button class="btn-ctrl" onclick="fitView()" title="Ajustar à Tela">⛶</button>
+      </div>
+
+      <!-- Botão FAB do Agente (Direita) -->
+      <button class="fab-agent-button" onclick="openAgentChat()" title="Conversar com o AI Agent">🤖</button>
+    </main>
+
+    <!-- Rodapé -->
+    <footer style="padding: 12px 28px; background: white; border-top: 1px solid var(--kyn-border); font-size: 12px; color: var(--kyn-gray-dark); display: flex; justify-content: center; gap: 16px; z-index: 20;">
+      <span>❇️ Arraste para navegar</span>
+      <span>•</span>
+      <span>Scroll para Zoom</span>
+      <span>•</span>
+      <span>Clique nos nós para ver detalhes</span>
+    </footer>
+  </div>
+
+  <!-- Drawer Lateral -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <aside class="drawer" id="sideDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <span class="drawer-dot" id="drawerDot"></span>
+        <div>
+          <h2 id="drawerTitle">Módulo do Agente</h2>
+          <p id="drawerSummary">Status e Ações</p>
+        </div>
+      </div>
+      <button class="btn-close" onclick="closeDrawer()" title="Fechar (ESC)">✕</button>
+    </div>
+    <div class="drawer-subheader">
+      <span class="owner-badge" id="drawerOwner">Orquestrado por Kyndryl Agentic AI</span>
+    </div>
+    <div class="drawer-body" id="drawerActionsList"></div>
+    <div class="drawer-footer">
+      <button class="btn-composer" onclick="openAgentChat()">
+        <span>✦</span> Conversar com o AI Agent
+      </button>
+    </div>
+  </aside>
+
+  <!-- AI AGENT CHAT -->
+  <div class="agent-chat-overlay" id="agentChatOverlay" onclick="closeAgentChat()"></div>
+  <aside class="agent-chat" id="agentChat">
+    <div class="agent-chat-header">
+      <div class="agent-chat-title">
+        <div class="agent-chat-avatar">✦</div>
+        <div>
+          <span class="agent-chat-label">Kyndryl Agentic AI</span>
+          <h2>Health AI Agent</h2>
+          <span class="agent-chat-status" id="agentProfileStatus">
+            <span class="agent-online-dot"></span>
+            Online • Connected to employee data
+          </span>
+        </div>
+      </div>
+      <div class="agent-header-actions">
+        <button class="agent-profile-button" id="agentProfileButton" type="button" onclick="toggleProfileMenu()" title="Alterar perfil" aria-label="Alterar perfil">👤</button>
+        <button class="agent-chat-close" type="button" onclick="closeAgentChat()" title="Fechar">✕</button>
+      </div>
+    </div>
+
+    <div class="agent-chat-messages" id="agentChatMessages">
+      <div class="agent-message agent">
+        <div class="message-avatar">✦</div>
+        <div class="message-content">
+          <div class="message-author">AI Agent</div>
+          <div class="message-bubble">
+            Olá! 👋 Estou conectado à base de funcionários.
+            Posso consultar exames vencidos, próximos vencimentos e informações de colaboradores.
+            Como posso ajudar?
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-chat-suggestions" id="agentChatSuggestions">
+      <button onclick="sendSuggestedQuestion('Quem está com exame vencido?')">Exames vencidos</button>
+      <button onclick="sendSuggestedQuestion('Quem precisa fazer exame nos próximos 30 dias?')">Próximos 30 dias</button>
+      <button onclick="sendSuggestedQuestion('Faça um resumo da situação dos exames')">Resumo geral</button>
+    </div>
+
+    <div class="agent-chat-input-area">
+      <textarea id="agentChatInput" placeholder="Pergunte sobre os exames periódicos..." rows="1" onkeydown="handleAgentInput(event)"></textarea>
+      <button class="agent-send-button" id="agentSendButton" onclick="sendAgentMessage()">➤</button>
+    </div>
+  </aside>
+  <div class="agent-profile-menu" id="agentProfileMenu" aria-hidden="true">
+    <span class="agent-profile-menu-title">Visualizar como</span>
+    <button type="button" data-profile="funcionario"><strong>Funcionário</strong><span>Meus dados e próximos passos</span></button>
+    <button type="button" data-profile="gerente"><strong>Gerente</strong><span>Resumo da equipe</span></button>
+    <button type="button" data-profile="rh"><strong>RH</strong><span>Visão completa</span></button>
+    <button type="button" data-profile="ti"><strong>TI</strong><span>Indicadores anonimizados</span></button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/drawer.js"></script>
+  <script src="js/command-center.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/fake-agent-data.js?v=static-1"></script>
+  <script src="js/agent-chat.js?v=static-1"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyndryl Agentic AI • Portal</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <style>
+    .home-content {
+      flex: 1;
+      background-color: var(--kyn-sand-bg);
+      background-image: radial-gradient(var(--kyn-sand-gray) 1.2px, transparent 1.2px);
+      background-size: 28px 28px;
+      padding: 48px;
+      overflow-y: auto;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, var(--kyn-dark) 0%, var(--kyn-teal-deep) 65%, var(--kyn-red) 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(28, 35, 37, 0.15);
+      margin-bottom: 36px;
+    }
+
+    .hero-banner h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+    .hero-banner p { font-size: 14px; opacity: 0.9; margin-top: 10px; max-width: 680px; line-height: 1.6; }
+
+    .hub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .hub-card {
+      background: white;
+      border: 1px solid var(--kyn-border);
+      border-radius: 18px;
+      padding: 32px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 6px 22px rgba(28, 35, 37, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 240px;
+    }
+
+    .hub-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(28, 35, 37, 0.12);
+      border-color: var(--kyn-red);
+    }
+
+    .hub-card-icon { font-size: 32px; margin-bottom: 12px; }
+    .hub-card h3 { font-size: 18px; font-weight: 700; color: var(--kyn-dark); }
+    .hub-card p { font-size: 13px; color: var(--kyn-gray-dark); margin-top: 6px; line-height: 1.5; }
+    .hub-link-action { font-size: 13px; font-weight: 700; color: var(--kyn-red); margin-top: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- Menu Lateral Global -->
+  <aside class="global-sidebar" id="globalSidebar">
+    <!-- Botão de Menu Sanduíche -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()" title="Abrir/Fechar menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div>
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="dot"></div>
+          <div>
+            <h2>Kyndryl AI</h2>
+            <span>Agentic Framework</span>
+          </div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link active">
+          <span class="nav-icon">🏠</span> Início / Visão Geral
+        </a>
+        <a href="command-center.html" class="nav-link">
+          <span class="nav-icon">🕸️</span> Centro de Comando
+        </a>
+        <a href="agent-journey.html" class="nav-link">
+          <span class="nav-icon">🚀</span> Jornada & Autonomia
+        </a>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <span>Copilot Studio • MVP NR-7</span>
+    </div>
+  </aside>
+
+  <!-- Conteúdo Principal -->
+  <div class="main-wrapper">
+    <header class="page-header">
+      <div>
+        <h1>Portal de IA Agêntica • Saúde Ocupacional</h1>
+        <p>Demonstração executiva de agentes inteligentes aplicados a processos de RH</p>
+      </div>
+      <span class="badge-tag">Microsoft Copilot Studio</span>
+    </header>
+
+    <main class="home-content">
+      <div class="hero-banner">
+        <h1>Gestão Proativa do Ciclo de Exames Médicos Ocupacionais Periódicos</h1>
+        <p>Agente Autônomo de IA que gerencia proativamente o ciclo de exames médicos ocupacionais periódicos, monitorando a base corporativa de RH, avaliando políticas e diretrizes, planejamento detalhado para cada colaborador, tomada de decisão e atuação autônoma.</p>
+      </div>
+
+      <div class="hub-grid">
+        <a href="command-center.html" class="hub-card">
+          <div>
+            <div class="hub-card-icon">🕸️</div>
+            <h3>Centro de Comando em Tempo Real</h3>
+            <p>Visualize o mapa mental interativo com telemetria, conexões ativas entre os nós do sistema e inspeção detalhada de cada fluxo.</p>
+          </div>
+          <div class="hub-link-action">Acessar Centro de Comando →</div>
+        </a>
+
+        <a href="agent-journey.html" class="hub-card">
+          <div>
+            <div class="hub-card-icon">🚀</div>
+            <h3>Jornada & Níveis de Autonomia</h3>
+            <p>Conheça os 4 estágios de evolução do agente: de observar e sugerir até a execução totalmente autônoma em conformidade com a NR-7.</p>
+          </div>
+          <div class="hub-link-action">Explorar Jornada do Agente →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/navigation.js"></script>
+</body>
+</html>

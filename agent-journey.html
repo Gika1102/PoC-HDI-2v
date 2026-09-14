@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyndryl Agentic AI • Jornada do Agente</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/journey.css">
+</head>
+<body>
+
+  <!-- Menu Lateral Global -->
+  <aside class="global-sidebar" id="globalSidebar">
+    <!-- Botão de Menu Sanduíche -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()" title="Abrir/Fechar menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div>
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="dot"></div>
+          <div>
+            <h2>Kyndryl AI</h2>
+            <span>Agentic Framework</span>
+          </div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link">
+          <span class="nav-icon">🏠</span> Início / Visão Geral
+        </a>
+        <a href="command-center.html" class="nav-link">
+          <span class="nav-icon">🕸️</span> Centro de Comando
+        </a>
+        <a href="agent-journey.html" class="nav-link active">
+          <span class="nav-icon">🚀</span> Jornada & Autonomia
+        </a>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <span>Copilot Studio • MVP NR-7</span>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="page-header">
+      <div>
+        <h1>Níveis de Autonomia do Agente de IA</h1>
+        <p>Evolução ilustrativa dos níveis de autonomia do Agente de IA.</p>
+      </div>
+      <span class="badge-tag">4 Estágios de Autonomia</span>
+    </header>
+
+    <main class="journey-container">
+      <div class="journey-intro">
+        <h2>Os níveis iniciais de autonomia dos Agentes de IA são evoluem de acordo com as decisões de governança e a maturidade dos processos.</h2>
+        <p>O Kyndryl Agentic Framework permite que o Agente de IA construído na plataforma Microsoft transite entre diferentes níveis de autononmia, mantendo controle, segurança operacional, governança e conformidade.</p>
+      </div>
+
+      <!-- PLAYER INTERATIVO -->
+      <div class="journey-player">
+        <!-- Timeline dos 4 Estágios -->
+        <div class="journey-timeline" id="journeyTimeline"></div>
+
+        <!-- Tela do Player -->
+        <div class="journey-screen">
+          <div class="journey-screen-header">
+            <div>
+              <h3 id="journeyScreenTitle">Observar & Sugerir</h3>
+              <p id="journeyScreenDesc">O agente consulta a base de dados e identifica prazos pendentes</p>
+            </div>
+          </div>
+          <div class="journey-log" id="journeyLog"></div>
+        </div>
+
+        <!-- Controles -->
+        <div class="journey-controls">
+          <div class="journey-control-buttons">
+            <button id="journeyPrevBtn" class="journey-btn" title="Estágio anterior">⏮️</button>
+            <button id="journeyPlayBtn" class="journey-btn play-btn" title="Reproduzir">▶️</button>
+            <button id="journeyNextBtn" class="journey-btn" title="Próximo estágio">⏭️</button>
+            <button id="journeyRestartBtn" class="journey-btn" title="Reiniciar">↺</button>
+          </div>
+
+          <div class="journey-progress">
+            <div class="journey-progress-bar"></div>
+          </div>
+
+          <span id="journeyStepLabel" class="journey-step-label">Passo 1 de 5 · Nível 1</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/journey-player.js"></script>
+</body>
+</html>
