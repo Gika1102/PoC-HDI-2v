@@ -26,23 +26,49 @@ function summary(employees, title) {
   return `${title}: ${employees.length} colaborador(es).\n• ${count("Vencido")} exame(s) vencido(s)\n• ${count("Próximo")} próximo(s) do vencimento\n• ${count("Em dia")} em dia`;
 }
 
+function accessDeniedMessage() {
+  return "Seu perfil não possui acesso a esse nível de informação.";
+}
+
 function localResponse(message) {
   const text = normalise(message);
   const { employees, clinics } = window.fakeAgentData;
   const scoped = scopedEmployees();
-  const asksAboutPeople = /(equipe|time|subordinad|colega|colaborador|funcionario)/.test(text);
-  const asksForTechnicalOnlyData = /(status tecn|monitoramento tecn|dados tecn|indicad|anonimiz|alerta tecn|base tecn|ti)/.test(text);
+  const asksAboutPeople = /(equipe|time|subordinad|colega|colaborador|funcionario|pessoa|membro|equipes)/.test(text);
+  const asksForTechnicalOnlyData = /(status tecn|monitoramento tecn|dados tecn|indicad|anonimiz|alerta tecn|base tecn|ti|infraestrutura|sistema|métrica tecnica|base tecnica)/.test(text);
+  const asksForOrgWidePeopleData = /(todos os colaboradores|base de rh|base de funcionarios|funcionarios da empresa|todos os funcionarios|dados de pessoas|cadastro completo|organiza[cç][aã]o|departamento|demais funcionarios|equipe inteira)/.test(text);
+  const asksForSensitivePeopleData = /(cpf|telefone|endereco|salario|remun|benefici|matricula|documento|dados sensiveis|dados pessoais)/.test(text);
+
+  if (activeProfile === "funcionario") {
+    if (asksForTechnicalOnlyData || asksAboutPeople || asksForOrgWidePeopleData || asksForSensitivePeopleData) {
+      return accessDeniedMessage();
+    }
+  }
+
+  if (activeProfile === "gerente") {
+    if (asksForTechnicalOnlyData || asksForOrgWidePeopleData || asksForSensitivePeopleData) {
+      return accessDeniedMessage();
+    }
+    if (/(todos|empresa|organizacao|rh|recursos humanos|departamentos|base de rh|base de funcionarios)/.test(text)) {
+      return accessDeniedMessage();
+    }
+  }
+
+  if (activeProfile === "rh") {
+    if (asksForTechnicalOnlyData) return accessDeniedMessage();
+    if (/(dados tecn|indicador tecn|base tecn|ti|monitoramento tecn|infraestrutura|sistema)/.test(text)) return accessDeniedMessage();
+  }
 
   if (activeProfile !== "ti" && asksForTechnicalOnlyData) {
-    if (activeProfile === "funcionario") return "Seu perfil de Funcionário não tem nível de acesso para indicadores técnicos do perfil TI.";
-    if (activeProfile === "gerente") return "Seu perfil de Gerente não tem nível de acesso para indicadores técnicos do perfil TI.";
-    if (activeProfile === "rh") return "Seu perfil de RH não tem nível de acesso para indicadores técnicos do perfil TI.";
+    if (activeProfile === "funcionario") return accessDeniedMessage();
+    if (activeProfile === "gerente") return accessDeniedMessage();
+    if (activeProfile === "rh") return accessDeniedMessage();
   }
 
   if (activeProfile === "ti") {
     const overdue = employees.filter(item => item.status === "Vencido").length;
     const upcoming = employees.filter(item => item.status === "Próximo").length;
-    if (asksAboutPeople) return "Seu perfil de TI não tem nível de acesso para consultar informações de equipes ou colaboradores.";
+    if (asksAboutPeople || asksForOrgWidePeopleData || asksForSensitivePeopleData) return accessDeniedMessage();
     if (/(vencido|atrasado|pendente)/.test(text)) return `Monitoramento técnico: ${overdue} registro(s) na fila crítica. Dados anonimizados.`;
     if (/(proximo|30 dia|alerta)/.test(text)) return `Monitoramento técnico: ${upcoming} registro(s) na fila de alertas preventivos. Dados anonimizados.`;
     return `Status técnico da PoC:\n• Fonte: dados fictícios embarcados no site\n• Registros processados: ${employees.length}\n• Integrações externas: nenhuma\n• Dados pessoais: ocultos para o perfil TI`;
@@ -59,9 +85,9 @@ function localResponse(message) {
     }
     return `Situação encontrada:\n${employeeLine(byName)}`;
   }
-  if (activeProfile === "funcionario" && asksAboutPeople) return "Seu perfil de Funcionário permite consultar apenas os seus próprios dados, sem acesso a equipes ou colegas.";
-  if (activeProfile === "gerente" && /(equipe|time|subordinado|time|colaboradores)/.test(text) && !/(meu|minha|resumo da minha equipe)/.test(text)) return "Seu perfil de Gerente só tem nível de acesso para a sua própria equipe.";
-  if (activeProfile === "rh" && asksForTechnicalOnlyData) return "Seu perfil de RH não tem nível de acesso para indicadores técnicos do perfil TI.";
+  if (activeProfile === "funcionario" && asksAboutPeople) return accessDeniedMessage();
+  if (activeProfile === "gerente" && /(equipe|time|subordinado|colaboradores)/.test(text) && !/(meu|minha|resumo da minha equipe)/.test(text)) return accessDeniedMessage();
+  if (activeProfile === "rh" && asksForTechnicalOnlyData) return accessDeniedMessage();
   if (/(clinica|onde|local)/.test(text)) {
     if (activeProfile === "funcionario") {
       const clinic = clinics.find(item => item.id === scoped[0].clinicId);
