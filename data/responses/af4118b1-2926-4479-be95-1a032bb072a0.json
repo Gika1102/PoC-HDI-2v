@@ -1,0 +1,20 @@
+{
+  "id": "af4118b1-2926-4479-be95-1a032bb072a0",
+  "timestamp": "2026-09-15T16:51:52.114Z",
+  "answers": {
+    "name": "EA",
+    "company": "KD",
+    "role": "DP",
+    "email": "edinei.almeida@kyndryl.com",
+    "optin": true,
+    "total": 5,
+    "level": "Inicial",
+    "answers": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  }
+}
