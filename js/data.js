@@ -158,9 +158,16 @@ const departmentData = {
         channel: "Bypass Automático"
       },
       {
-        name: "Caso B: Colaborador @202832 - Próximo do Vencimento",
+        name: "Caso B: Colaborador @202832 - Próximo do Vencimento <strong>(Trabalho em periculosidade: NR-15/Ruído).</strong>",        
         status: "ACTIVE",
         desc: "Vencimento em 15/09/2026 sem agendamento prévio. Decisão: Enviar lembrete com link da Clínica Demo Paulista.",
+        lastRun: "Fila de Envio",
+        channel: "Alerta Proativo"
+      },
+     {
+        name: "Caso B: Colaborador @202832 - <strong>(Trabalho em periculosidade: NR-15/Ruído).</strong>",       
+        status: "ACTIVE",
+        desc: "Decisão: Adicionar o exame de audiometria.",
         lastRun: "Fila de Envio",
         channel: "Alerta Proativo"
       },
