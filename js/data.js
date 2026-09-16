@@ -160,7 +160,7 @@ const departmentData = {
       {
         name: "Caso B: Colaborador @202832 - <strong>(Trabalho em periculosidade: NR-15/Ruído).</strong>",        
         status: "ACTIVE",
-        desc: "Vencimento em 15/09/2026 sem agendamento prévio. Decisão: Enviar lembrete com link da Clínica Demo Paulista e adicionar exame de audiometria.",
+        desc: "Vencimento em 15/09/2026 sem agendamento prévio. Decisão: Enviar lembrete com link da Clínica Demo Paulista e <strong>adicionar exame de audiometria.</strong>",
         lastRun: "Fila de Envio",
         channel: "Alerta Proativo"
       },
